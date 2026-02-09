@@ -19,6 +19,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+var cors = require("cors");
 var mongoose = require("mongoose");
 mongoose.connect("mongodb+srv://hannaandersson:hejhanna@cluster0.ek9del0.mongodb.net/pasta_db?appName=Cluster0");
 var db = mongoose.connection;
@@ -26,7 +27,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function (callback) {
 	console.log("Kopplingen lyckades!");
 });
-
+app.use(cors());
 app.use("/", indexRouter);
 app.use("/pasta", pastaRouter);
 
